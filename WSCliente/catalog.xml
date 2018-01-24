@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/luis/Documents/app/WSCliente/build/web/WEB-INF/wsdl/localhost_8080/WSPractice/Hello.wsdl" uri="src/conf/xml-resources/web-service-references/Hello_1/wsdl/Hello.wsdl"/>
+    <system systemId="http://localhost:8080/WSPractice/Hello?wsdl" uri="src/conf/xml-resources/web-service-references/Hello/wsdl/localhost_8080/WSPractice/Hello.wsdl"/>
+    <system systemId="http://localhost:8080/WSPractice/Hello?xsd=1" uri="src/conf/xml-resources/web-service-references/Hello/wsdl/localhost_8080/WSPractice/Hello.xsd_1.xsd"/>
+</catalog>

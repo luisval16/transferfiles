@@ -4,11 +4,14 @@
 <xsd:import namespace="http://server/" schemaLocation="http://localhost:8080/WSPractice/Hello?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getRoot">
-<part name="parameters" element="tns:getRoot"/>
+<message name="downloadFile">
+<part name="parameters" element="tns:downloadFile"/>
 </message>
-<message name="getRootResponse">
-<part name="parameters" element="tns:getRootResponse"/>
+<message name="downloadFileResponse">
+<part name="parameters" element="tns:downloadFileResponse"/>
+</message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
 </message>
 <message name="sayHello">
 <part name="parameters" element="tns:sayHello"/>
@@ -22,25 +25,11 @@
 <message name="uploadFileResponse">
 <part name="parameters" element="tns:uploadFileResponse"/>
 </message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
-<message name="createFolder">
-<part name="parameters" element="tns:createFolder"/>
-</message>
-<message name="createFolderResponse">
-<part name="parameters" element="tns:createFolderResponse"/>
-</message>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <portType name="Hello">
-<operation name="getRoot">
-<input wsam:Action="http://server/Hello/getRootRequest" message="tns:getRoot"/>
-<output wsam:Action="http://server/Hello/getRootResponse" message="tns:getRootResponse"/>
+<operation name="downloadFile">
+<input wsam:Action="http://server/Hello/downloadFileRequest" message="tns:downloadFile"/>
+<output wsam:Action="http://server/Hello/downloadFileResponse" message="tns:downloadFileResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://server/Hello/downloadFile/Fault/IOException"/>
 </operation>
 <operation name="sayHello">
 <input wsam:Action="http://server/Hello/sayHelloRequest" message="tns:sayHello"/>
@@ -51,19 +40,10 @@
 <output wsam:Action="http://server/Hello/uploadFileResponse" message="tns:uploadFileResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://server/Hello/uploadFile/Fault/IOException"/>
 </operation>
-<operation name="createFolder">
-<input wsam:Action="http://server/Hello/createFolderRequest" message="tns:createFolder"/>
-<output wsam:Action="http://server/Hello/createFolderResponse" message="tns:createFolderResponse"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://server/Hello/createFolder/Fault/IOException"/>
-</operation>
-<operation name="hello">
-<input wsam:Action="http://server/Hello/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://server/Hello/helloResponse" message="tns:helloResponse"/>
-</operation>
 </portType>
 <binding name="HelloPortBinding" type="tns:Hello">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getRoot">
+<operation name="downloadFile">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -71,6 +51,9 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
 </operation>
 <operation name="sayHello">
 <soap:operation soapAction=""/>
@@ -92,27 +75,6 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
-</operation>
-<operation name="createFolder">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
-</fault>
-</operation>
-<operation name="hello">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
 </operation>
 </binding>
 <service name="Hello">

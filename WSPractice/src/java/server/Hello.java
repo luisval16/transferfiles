@@ -9,6 +9,7 @@ import java.io.*;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.xml.ws.WebServiceException;
 
 /**
  *
@@ -71,5 +72,24 @@ public class Hello {
     File directory = new File(path+directoryName);
     directory.mkdir();
     return directoryName;
+    }
+    
+    @WebMethod
+    public byte[] downloadFile(String filename) throws IOException{
+    String destination = getRoot() + createFolder(getRoot()) + File.separator + filename;
+        try {
+            File file = new File(destination);
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream in =  new BufferedInputStream(fis);
+            byte[] fileBytes = new byte[(int) file.length()];
+            in.read(fileBytes);
+            in.close();
+            return fileBytes;
+        } catch (IOException e) {
+            System.err.println(e);
+            throw new WebServiceException(e);
+        }
+        
+    
     }
 }

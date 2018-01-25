@@ -4,6 +4,15 @@
 <xsd:import namespace="http://server/" schemaLocation="http://localhost:8080/WSPractice/Hello?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="downloadFile">
+<part name="parameters" element="tns:downloadFile"/>
+</message>
+<message name="downloadFileResponse">
+<part name="parameters" element="tns:downloadFileResponse"/>
+</message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
+</message>
 <message name="sayHello">
 <part name="parameters" element="tns:sayHello"/>
 </message>
@@ -16,10 +25,12 @@
 <message name="uploadFileResponse">
 <part name="parameters" element="tns:uploadFileResponse"/>
 </message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <portType name="Hello">
+<operation name="downloadFile">
+<input wsam:Action="http://server/Hello/downloadFileRequest" message="tns:downloadFile"/>
+<output wsam:Action="http://server/Hello/downloadFileResponse" message="tns:downloadFileResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://server/Hello/downloadFile/Fault/IOException"/>
+</operation>
 <operation name="sayHello">
 <input wsam:Action="http://server/Hello/sayHelloRequest" message="tns:sayHello"/>
 <output wsam:Action="http://server/Hello/sayHelloResponse" message="tns:sayHelloResponse"/>
@@ -32,6 +43,18 @@
 </portType>
 <binding name="HelloPortBinding" type="tns:Hello">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="downloadFile">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
+</operation>
 <operation name="sayHello">
 <soap:operation soapAction=""/>
 <input>

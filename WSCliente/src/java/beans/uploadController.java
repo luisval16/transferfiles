@@ -25,15 +25,19 @@ public class uploadController implements Serializable{
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/WSPractice/Hello.wsdl")
     private Hello_Service service;
      
-    private Part file;
+    private Part filePart;
 
     public Part getFile() {
-        return file;
+        return filePart;
     }
 
     public void setFile(Part file) {
-        this.file = file;
+        this.filePart = file;
     }
+    
+    private File file;
+    
+    
     
     /**
      * Creates a new instance of uploadController
@@ -43,14 +47,16 @@ public class uploadController implements Serializable{
 
     
     public void uploadFile() throws IOException, IOException_Exception{
-        InputStream in = file.getInputStream();
-        String filename = file.getSubmittedFileName();
-        
-        byte[] bytes = new byte[1024];
+        /*InputStream in = file.getInputStream();
+        String filename = file.getSubmittedFileName();*/
+        file = new File("C:\\Users\\luis\\Downloads\\cantidadDepto.pdf");
+        FileInputStream fis = new FileInputStream(file);
+        BufferedInputStream in = new BufferedInputStream(fis);
+        byte[] bytes = new byte[(int) file.length()];
         in.read(bytes);
-        uploadFile_1(filename, bytes);
+        uploadFile_1(file.getName(), bytes);
         in.close();
-        System.out.println("Exito! archivo subido: " + filename);
+        System.out.println("Exito! archivo subido: " + file.getName());
      
     }
 

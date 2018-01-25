@@ -5,6 +5,7 @@
  */
 package server;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Endpoint;
 
 /**
@@ -13,6 +14,7 @@ import javax.xml.ws.Endpoint;
  */
 public class WebServiceServer {
     public static void main(String[] args) {
+       
         String bindingURI = "http://localhost:8080/WSPractice/Hello";
         Hello service = new Hello();
         Endpoint.publish(bindingURI, service);
